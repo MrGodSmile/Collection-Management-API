@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Collection-Management-API", "Collection-Management-API\Collection-Management-API.csproj", "{FCD72FC0-DD39-4855-8A84-B190B5D4BBF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1", "ClassLibrary1\ClassLibrary1.csproj", "{6942139A-F0C2-45B9-85B2-A06C1DC31542}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,9 +12,5 @@ Global
 		{FCD72FC0-DD39-4855-8A84-B190B5D4BBF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCD72FC0-DD39-4855-8A84-B190B5D4BBF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCD72FC0-DD39-4855-8A84-B190B5D4BBF8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6942139A-F0C2-45B9-85B2-A06C1DC31542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6942139A-F0C2-45B9-85B2-A06C1DC31542}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6942139A-F0C2-45B9-85B2-A06C1DC31542}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6942139A-F0C2-45B9-85B2-A06C1DC31542}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
