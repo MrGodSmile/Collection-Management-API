@@ -17,7 +17,7 @@ public class CollectionManagementDbContext : DbContext
     
     public DbSet<ElementEntity> Elements { get; set; }
     
-    public DbSet<TagsEntity> Tagss { get; set; }
+    public DbSet<TagEntity> Tags { get; set; }
     
     public DbSet<UserEntity> Users { get; set; }
 }

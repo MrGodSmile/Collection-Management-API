@@ -3,9 +3,9 @@
 interface IRepository<T> where T : class
 {
     Task<IQueryable<T>> GetAll();
-    Task<T> Get(int id);
+    Task<T> GetById(int id);
     Task Create(T item);
     Task Update(T item);
-    Task Delete(int id);
+    Task<bool> Delete(int id);
 
 }

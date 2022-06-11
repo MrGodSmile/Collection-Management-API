@@ -5,7 +5,7 @@ namespace CollectionManagementAPI.DataAccess.Service;
 
 public class Repository<T> : IRepository<T> where T : class
 {
-    private DbSet<T> db;
+    private readonly DbSet<T> db;
     
     private readonly CollectionManagementDbContext _context;
 
@@ -20,7 +20,7 @@ public class Repository<T> : IRepository<T> where T : class
         return await db.AsNoTracking<T>().ToListAsync() as IQueryable<T>; 
     }
 
-    public async Task<T> Get(int id)
+    public async Task<T> GetById(int id)
     {
         return await db.FindAsync(id);
     }
@@ -37,11 +37,15 @@ public class Repository<T> : IRepository<T> where T : class
         await _context.SaveChangesAsync();
     }
 
-    public async Task Delete(int id)
+    public async Task<bool> Delete(int id)
     {
         T collection = await db.FindAsync(id);
         if (id != null)
+        {
             db.Remove(collection);
-        
+            return true;
+        }
+
+        return false;
     }
 }

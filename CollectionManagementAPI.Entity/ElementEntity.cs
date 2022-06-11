@@ -11,6 +11,6 @@ public class ElementEntity
     
     public string Comment { get; set; }
 
-    public List<TagsEntity> Tags { get; set; } = new();
+    public ICollection<TagEntity> Tags { get; set; } 
 
 }

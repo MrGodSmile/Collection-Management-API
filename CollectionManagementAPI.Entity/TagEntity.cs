@@ -1,6 +1,6 @@
 ﻿namespace CollectionManagementAPI.Entity;
 
-public class TagsEntity
+public class TagEntity
 {
     
     public int Id { get; set; }
