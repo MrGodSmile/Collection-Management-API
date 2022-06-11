@@ -18,6 +18,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CollectionManagementAPI.DataAccess\CollectionManagementAPI.DataAccess.csproj" />
+
     </ItemGroup>
 
 </Project>
