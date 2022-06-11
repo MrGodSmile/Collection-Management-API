@@ -2,7 +2,7 @@
 
 interface IRepository<T> where T : class
 {
-    Task<IQueryable<T>> GetAll();
+    IQueryable<T> GetAll();
     Task<T> GetById(int id);
     Task Create(T item);
     Task Update(T item);
