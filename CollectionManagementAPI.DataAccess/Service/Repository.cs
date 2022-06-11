@@ -5,36 +5,43 @@ namespace CollectionManagementAPI.DataAccess.Service;
 
 public class Repository<T> : IRepository<T> where T : class
 {
+    private DbSet<T> db;
+    
     private readonly CollectionManagementDbContext _context;
 
-    public Repository(CollectionManagementDbContext context) => _context = context;
-    
-    public async Task<IEnumerable<T>> GetList()
+    public Repository(CollectionManagementDbContext context)
     {
-        return await _context.Set<T>().ToListAsync() as IEnumerable<T>;
+        _context = context;
+        db = _context.Set<T>();
+    }
+
+    public async Task<IQueryable<T>> GetAll()
+    {
+        return await db.AsNoTracking<T>().ToListAsync() as IQueryable<T>; 
     }
 
     public async Task<T> Get(int id)
     {
-        return await _context.Set<T>().FindAsync(id);
+        return await db.FindAsync(id);
     }
 
     public async Task Create(T item)
     {
-        await _context.Set<T>().AddAsync(item);
+        await db.AddAsync(item);
         await _context.SaveChangesAsync();
     }
 
     public async Task Update(T item)   
     {
-        _context.Set<T>().Update(item);
+        db.Update(item);
         await _context.SaveChangesAsync();
     }
 
     public async Task Delete(int id)
     {
-        T collection = await _context.Set<T>().FindAsync(id);
+        T collection = await db.FindAsync(id);
         if (id != null)
-            _context.Set<T>().Remove(collection);
+            db.Remove(collection);
+        
     }
 }
