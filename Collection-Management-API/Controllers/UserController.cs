@@ -1,6 +1,7 @@
 ﻿using CollectionManagementAPI.Entity;
 using CollectionManagementAPI.Service.Interfeces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -20,9 +21,13 @@ public class UserController : Controller
     }
     
     [HttpGet("GetUser/{id}")]
-    public async Task<UserEntity> GetById(int id) 
+    public async Task<ActionResult<UserEntity>> GetById(int id) 
     {
         var user = await _userService.GetById(id);
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
         return user;
     }
 
