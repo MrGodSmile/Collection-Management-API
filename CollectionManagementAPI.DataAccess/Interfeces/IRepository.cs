@@ -1,6 +1,6 @@
 ﻿namespace CollectionManagementAPI.DataAccess.Interfeces;
 
-interface IRepository<T> where T : class
+public interface IRepository<T> where T : class
 {
     IQueryable<T> GetAll();
     Task<T> GetById(int id);

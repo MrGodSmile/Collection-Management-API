@@ -8,9 +8,17 @@
 
     <ItemGroup>
       <Folder Include="Helper" />
-      <Folder Include="Interfeces" />
-      <Folder Include="Service" />
       <Folder Include="Utils" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CollectionManagementAPI.DataAccess\CollectionManagementAPI.DataAccess.csproj" />
+      <ProjectReference Include="..\CollectionManagementAPI.Entity\CollectionManagementAPI.Entity.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.19.0" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.19.0" />
     </ItemGroup>
 
 </Project>
