@@ -12,12 +12,15 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.19.0" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.1" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\CollectionManagementAPI.DataAccess\CollectionManagementAPI.DataAccess.csproj" />
+      <ProjectReference Include="..\CollectionManagementAPI.Infrastructure\CollectionManagementAPI.Infrastructure.csproj" />
 
     </ItemGroup>
 

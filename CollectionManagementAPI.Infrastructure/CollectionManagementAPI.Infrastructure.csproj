@@ -6,4 +6,17 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
+      <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CollectionManagementAPI.DataAccess\CollectionManagementAPI.DataAccess.csproj" />
+      <ProjectReference Include="..\CollectionManagementAPI.Entity\CollectionManagementAPI.Entity.csproj" />
+      <ProjectReference Include="..\CollectionManagementAPI.Service\CollectionManagementAPI.Service.csproj" />
+    </ItemGroup>
+
 </Project>
