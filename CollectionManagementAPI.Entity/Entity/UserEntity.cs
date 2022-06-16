@@ -14,5 +14,9 @@ public class UserEntity
     public string? Name { get; set; }
     
     public string? Surname { get; set; }
+    
+    public Roles Role { get; set; }
+    
+    public bool IsBlock { get; set; }
 
 }

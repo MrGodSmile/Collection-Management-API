@@ -22,7 +22,7 @@ public class UserIdentityController : Controller
         UserEntity user = await _userService.SearchByLogin(registerModel.UserName);
         if (user != null)
         {
-            return BadRequest("This username is already in use");
+            return BadRequest("There is already such a user");
         }
         
         _identityService.CreatePasswordHash(registerModel.Password, out byte[] passwordHash);
@@ -33,7 +33,8 @@ public class UserIdentityController : Controller
             UserName = registerModel.UserName, 
             Email = registerModel.Email, 
             Name = registerModel.Name, 
-            Surname = registerModel.Surname
+            Surname = registerModel.Surname,
+            Role = registerModel.Role
         };
 
         await _userService.Create(user);
@@ -45,12 +46,16 @@ public class UserIdentityController : Controller
     public async Task<ActionResult<string>> Login(LoginModel loginModel)
     {
         var user = await _userService.SearchByLogin(loginModel.Login);
-        if (user == null)
+        
+        if (user.IsBlock == true)
+        {
+            return BadRequest("User Blocked");
+        }
+        else if (user == null)
         {
             return NotFound("User not found");
         }
-
-        if (!_identityService.VerifyPasswordHash(loginModel.Password, user.PasswordHash))
+        else if (!_identityService.VerifyPasswordHash(loginModel.Password, user.PasswordHash))
         {
             return BadRequest("Wrong password");
         }

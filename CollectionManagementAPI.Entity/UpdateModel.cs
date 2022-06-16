@@ -7,4 +7,8 @@ public class UpdateModel
     public string Email { get; set; }
     public string? Name { get; set; }
     public string? Surname { get; set; }
+    
+    public bool IsBlock { get; set; }
+    
+    public Roles Role { get; set; }
 }
