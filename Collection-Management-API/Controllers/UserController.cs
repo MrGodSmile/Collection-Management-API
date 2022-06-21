@@ -31,6 +31,13 @@ public class UserController : Controller
         return user;
     }
 
+    [HttpGet("GetAll")]
+    public ActionResult<IQueryable<UserEntity>> GetAll()
+    {
+        var users = _userService.GetAll();
+        return Ok(users);
+    }
+
     [HttpPost("CreateUser")]
     public async Task<ActionResult<UserEntity>> Create(RegisterModel registerModel)
     {
