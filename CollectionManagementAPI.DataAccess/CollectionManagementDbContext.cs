@@ -6,7 +6,12 @@ namespace CollectionManagementAPI.DataAccess;
 
 public class CollectionManagementDbContext : DbContext
 {
-    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<UserEntity>()
+            .Property(u => u.Role)
+            .HasConversion<string>();
+    }
     public CollectionManagementDbContext(DbContextOptions<CollectionManagementDbContext> options) :
         base(options)
     {
