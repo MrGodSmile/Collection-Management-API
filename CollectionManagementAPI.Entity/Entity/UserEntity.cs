@@ -24,5 +24,7 @@ public class UserEntity
     [JsonConverter(typeof(StringEnumConverter))]
     public Roles Role { get; set; }
     public bool IsBlock { get; set; }
+    
+    public ICollection<CollectionEntity> Collections { get; set; }
 
 }

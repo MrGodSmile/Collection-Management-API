@@ -1,4 +1,5 @@
-﻿using CollectionManagementAPI.Service.Interfeces;
+﻿using CollectionManagementAPI.Entity;
+using CollectionManagementAPI.Service.Interfeces;
 using CollectionManagementAPI.Service.Service;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,7 @@ public static class BusinessModule
     {
         services.AddTransient<IUserService, UserService>();
         services.AddTransient<IIdentityService, IdentityService>();
+        services.AddTransient<ICollectionService, CollectionService>();
         return services;
     }
 }

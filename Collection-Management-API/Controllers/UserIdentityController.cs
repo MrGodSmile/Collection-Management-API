@@ -19,7 +19,7 @@ public class UserIdentityController : Controller
     [HttpPost("Register")]
     public async Task<ActionResult<UserEntity>> Register(RegisterModel registerModel)
     {
-        UserEntity user = await _userService.SearchByLogin(registerModel.UserName);
+        UserEntity user =  _userService.SearchByLogin(registerModel.UserName);
         if (user != null)
         {
             return BadRequest("There is already such a user");
@@ -34,7 +34,6 @@ public class UserIdentityController : Controller
             Email = registerModel.Email, 
             Name = registerModel.Name, 
             Surname = registerModel.Surname,
-            Role = registerModel.Role
         };
 
         await _userService.Create(user);
@@ -43,9 +42,9 @@ public class UserIdentityController : Controller
     }
 
     [HttpPost("Login")]
-    public async Task<ActionResult<string>> Login(LoginModel loginModel)
+    public ActionResult<string> Login(LoginModel loginModel)
     {
-        var user = await _userService.SearchByLogin(loginModel.Login);
+        var user =  _userService.SearchByLogin(loginModel.Login);
         
         if (user.IsBlock == true)
         {

@@ -1,5 +1,6 @@
 ﻿using CollectionManagementAPI.Entity;
 using CollectionManagementAPI.Service.Interfeces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
@@ -9,6 +10,8 @@ namespace Collection_Management_API.Controllers;
 
 [ApiController]
 [SwaggerTag("User")]
+[Route("User")]
+[Authorize (Roles = "Admin")]
 public class UserController : Controller
 {
     private readonly IUserService _userService;
@@ -20,7 +23,7 @@ public class UserController : Controller
         _identityService = identityService;
     }
     
-    [HttpGet("GetUser/{id}")]
+    [HttpGet("{id:int}")]
     public async Task<ActionResult<UserEntity>> GetById(int id) 
     {
         var user = await _userService.GetById(id);
@@ -31,17 +34,24 @@ public class UserController : Controller
         return user;
     }
 
-    [HttpGet("GetAll")]
+    [HttpGet("")]
     public ActionResult<IQueryable<UserEntity>> GetAll()
     {
         var users = _userService.GetAll();
         return Ok(users);
     }
-
-    [HttpPost("CreateUser")]
+    
+    [HttpGet("{skip:int}/{take:int}")]
+    public ActionResult<IQueryable<UserEntity>> GetPeriod(int skip, int take)
+    {
+        var users = _userService.GetPeriod(skip, take);
+        return Ok(users);
+    }
+    
+    [HttpPost("")]
     public async Task<ActionResult<UserEntity>> Create(RegisterModel registerModel)
     {
-        UserEntity user = await _userService.SearchByLogin(registerModel.UserName);
+        UserEntity user = _userService.SearchByLogin(registerModel.UserName);
         if (user != null)
         {
             return BadRequest("This username is already in use");
@@ -61,7 +71,7 @@ public class UserController : Controller
         return Ok(user);
     }
     
-    [HttpPut("UpdateUser")]
+    [HttpPut("")]
     public async Task<ActionResult<UserEntity>> Update(UpdateModel updateModel)
     {
         var user = await _userService.GetById(updateModel.Id);
@@ -74,16 +84,16 @@ public class UserController : Controller
         return Ok(user);
     }
     
-    [HttpDelete("DeleteUser")]
+    [HttpDelete("{id:int}")]
     public async Task<bool> Delete(int id)
     {
         return await _userService.Delete(id);
     }
 
-    [HttpGet("SearchUser")]
-    public async Task<ActionResult<UserEntity>> SearchByLogin(string login)
+    [HttpGet("{login}")]
+    public ActionResult<UserEntity> SearchByLogin(string login)
     {
-        var user = await _userService.SearchByLogin(login);
+        var user =  _userService.SearchByLogin(login);
         if (user == null)
         {
             return NotFound();
