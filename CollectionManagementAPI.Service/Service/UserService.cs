@@ -26,10 +26,10 @@ public class UserService : IUserService
         return _userRepository.GetAll();
     }
 
-    public IQueryable<UserEntity> GetPeriod(int skip, int take)
+    public IQueryable<UserEntity> GetRange(int skip, int take)
     {
-        var period = _userRepository.GetAll().Skip(skip).Take(take);
-        return period;
+        var users = _userRepository.GetAll().Skip(skip).Take(take);
+        return users;
     }
 
 

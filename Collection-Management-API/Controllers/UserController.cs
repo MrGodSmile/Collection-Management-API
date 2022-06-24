@@ -10,7 +10,7 @@ namespace Collection_Management_API.Controllers;
 
 [ApiController]
 [SwaggerTag("User")]
-[Route("User")]
+[Route("[controller]")]
 [Authorize (Roles = "Admin")]
 public class UserController : Controller
 {
@@ -42,9 +42,9 @@ public class UserController : Controller
     }
     
     [HttpGet("{skip:int}/{take:int}")]
-    public ActionResult<IQueryable<UserEntity>> GetPeriod(int skip, int take)
+    public ActionResult<IQueryable<UserEntity>> GetRange(int skip, int take)
     {
-        var users = _userService.GetPeriod(skip, take);
+        var users = _userService.GetRange(skip, take);
         return Ok(users);
     }
     

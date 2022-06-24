@@ -1,5 +1,6 @@
 ﻿using CollectionManagementAPI.DataAccess.Interfeces;
 using CollectionManagementAPI.Entity;
+using CollectionManagementAPI.Entity.Models.Collections;
 using CollectionManagementAPI.Service.Interfeces;
 
 namespace CollectionManagementAPI.Service.Service;
@@ -18,7 +19,7 @@ public class CollectionService : ICollectionService
         return _collectionRepository.GetAll();
     }
 
-    public IQueryable<CollectionEntity> GetPeriod(int skip, int take)
+    public IQueryable<CollectionEntity> GetRange(int skip, int take)
     {
         var period = _collectionRepository.GetAll().Skip(skip).Take(take);
         return period;
@@ -36,8 +37,13 @@ public class CollectionService : ICollectionService
         await _collectionRepository.Create(collection);
     }
 
-    public async Task Update(CollectionEntity collection)
+    public async Task Update(CollectionEntity collection, CollectionModel updateModel)
     {
+        collection.Id = updateModel.Id;
+        collection.Name = updateModel.Name;
+        collection.Description = updateModel.Description;
+        collection.Topic = updateModel.Topic;
+        
         await _collectionRepository.Update(collection);
     }
 

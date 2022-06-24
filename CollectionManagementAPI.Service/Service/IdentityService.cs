@@ -34,7 +34,9 @@ public class IdentityService : IIdentityService
         List<Claim> claims = new List<Claim>()
         {
             new Claim(ClaimTypes.Name, user.UserName),
-            new Claim(ClaimTypes.Role, user.Role.ToString())
+            new Claim(ClaimTypes.Role, user.Role.ToString()),
+            new Claim("Id", user.Id.ToString()),
+            new Claim("Banned", user.IsBlock.ToString())
         };
         
         var token = new JwtSecurityToken(

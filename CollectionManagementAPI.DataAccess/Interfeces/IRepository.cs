@@ -3,8 +3,6 @@
 public interface IRepository<T> where T : class
 {
     IQueryable<T> GetAll();
-
-    IQueryable<T> GetPeriod();
     Task<T> GetById(int id);
     Task Create(T item);
     Task Update(T item);

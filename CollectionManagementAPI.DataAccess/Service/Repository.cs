@@ -20,11 +20,6 @@ public class Repository<T> : IRepository<T> where T : class
         return dbSet.AsNoTracking();
     }
 
-    public IQueryable<T> GetPeriod()
-    {
-        return dbSet.AsNoTracking();
-    }
-
     public async Task<T> GetById(int id)
     {
         return await dbSet.FindAsync(id);

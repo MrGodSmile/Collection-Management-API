@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Collection_Management_API.DRY;
 using CollectionManagementAPI.Entity;
 using CollectionManagementAPI.Entity.Models.Collections;
 using CollectionManagementAPI.Entity.Transformation;
@@ -11,8 +12,8 @@ namespace Collection_Management_API.Controllers;
 
 [ApiController]
 [SwaggerTag("Collection")]
-[Route("Collection")]
-[Authorize (Roles = "Admin")]
+[Route("[controller]")]
+[Authorize (Roles = "Admin , User")]
 
 public class CollectionController : Controller
 {
@@ -44,19 +45,16 @@ public class CollectionController : Controller
     }
 
     [HttpGet("{skip:int}/{take:int}")]
-    public ActionResult<IQueryable<CollectionEntity>> GetPeriod(int skip, int take)
+    public ActionResult<IQueryable<CollectionEntity>> GetRange(int skip, int take)
     {
-        var collections = _collectionService.GetPeriod(skip, take);
+        var collections = _collectionService.GetRange(skip, take);
         return Ok(collections);
     }
 
     [HttpPost("")]
-    public async Task<ActionResult<CollectionEntity>> Create(CollectionCreateModel createModel)
+    public async Task<ActionResult<CollectionEntity>> Create(CollectionModel createModel)
     {
-        var name = this.HttpContext.User.Claims
-            .FirstOrDefault(x => x.Type == ClaimTypes.Name);
-
-        var user = _userService.SearchByLogin(name.Value);
+        var user = await GetUsersFromToken.GetUserFromToken(HttpContext, _userService);
         
         var collection = new CollectionEntity()
         {
@@ -65,6 +63,7 @@ public class CollectionController : Controller
             Topic = createModel.Topic,
             UserId = user.Id
         };
+        
         await _collectionService.Create(collection);
         return Ok(collection.ToCollectionModel());
     }
@@ -72,23 +71,17 @@ public class CollectionController : Controller
     [HttpPut("")]
     public async Task<ActionResult<UserEntity>> Update(CollectionModel collectionModel)
     {
-        var name = this.HttpContext.User.Claims
-            .FirstOrDefault(x => x.Type == ClaimTypes.Name);
+        var user = await GetUsersFromToken.GetUserFromToken(HttpContext, _userService);
 
-        var user = _userService.SearchByLogin(name.Value);
-        
         var collection = await _collectionService.GetById(collectionModel.Id);
         
-        if (user.Id != collection.UserId)
+        if (user.Id != collection.UserId && user.Role != Roles.Admin)
         {
             return BadRequest("This is not your collection");
         }
         
-        collection.Name = collectionModel.Name;
-        collection.Description = collectionModel.Description;
-        collection.Topic = collectionModel.Topic;
-
-        await _collectionService.Update(collection);
+        await _collectionService.Update(collection, collectionModel);
+        
         return Ok(collection.ToCollectionModel());
     }
     
